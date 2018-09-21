@@ -1,0 +1,2 @@
+ which will print each property name before checking it.
+ quickCheck +names <options> <file names>
