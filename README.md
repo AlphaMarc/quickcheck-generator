@@ -1,6 +1,6 @@
 # quickcheck-tuto
 
-This little repo is used to showcas how one can use existing functions in the quickcheck library to generate an Arbitrary instance for their custom types and use this powerful library to test the properties of their code.
+This little repo is used to showcase how one can use existing functions in the quickcheck library to generate an Arbitrary instance for their custom types and use this powerful library to test the properties of their code.
 
 For a custom record type `Person` which represents a Person is defined in `Lib.hs` as
 ```
