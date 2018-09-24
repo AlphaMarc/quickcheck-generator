@@ -3,8 +3,9 @@
 Property based testing is the perfect addition to a pure functional language such as Haskell. Thanks to the use of generic types in Haskell it is possible to derive information about what a function does just by looking at its signature. For example there is only one function with the signature `f :: a -> a` and that is the identity function. Another one, when I see `g :: [a] -> [a]` I know that all the elements in the result list were in the one given as parameter. These properties are guaranteed by the compiler.
 
 Let's take that second example, I can infer some property but that still doesn't quite tell me what that function does. Does it reverse the list? Does it returns the list without its first element? That's where property based testing comes in handy. If I add a couple properties to that function such as
-``` g . g = id
-g (x:xs) = g (xs) ++ [x]
+``` 
+g . g = id
+g(x:xs) = g(xs) ++ [x]
 ```
 Then I know that this function is no other than the reverse function. These properties however are not checked by the compiler. That's where libraries such as QuickCheck come in handy because it allows to write these properties and to test them against a number of randomly generated examples.
 
