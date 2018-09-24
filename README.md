@@ -1,4 +1,4 @@
-# quickcheck-tuto
+# Property based testing in Haskell
 
 Property based testing is the perfect addition to a pure functional language such as Haskell. Thanks to the use of generic types in Haskell it is possible to derive information about what a function does just by looking at its signature. For example there is only one function with the signature `f :: a -> a` and that is the identity function. Another one, when I see `g :: [a] -> [a]` I know that all the elements in the result list were in the one given as parameter. These properties are guaranteed by the compiler.
 
@@ -9,6 +9,8 @@ g(x:xs) = g(xs) ++ [x]
 ```
 Then I know that this function is no other than the reverse function. These properties however are not checked by the compiler. That's where libraries such as QuickCheck come in handy because it allows to write these properties and to test them against a number of randomly generated examples.
 
+# Write properties with your custom record types
+## Extend the `Arbitrary` type class
 A lot has been written about property based testing and QuickCheck. However I could not find a simple example that leverages the functions in the quickcheck library to generate an `Arbitrary` instance for a custom record types.
 
 We start by defining a custom record type `Person` which represents a Person in `Lib.hs` as
@@ -51,4 +53,17 @@ genPhone = do
   return ([zero, one] ++ rest)
  ```
 
+## Run your properties
+Now that QuickCheck will be able to generate random values for our type we can write properties about it. Properties can be written in a separate test file (`Spec.hs`in our case). These properties consist of a statement that can be true or false. In our case we test that the first name is no longer than 10 characters with the following prop:
+```
+prop_FirstNameUnderTenChar :: Person -> Bool
+prop_FirstNameUnderTenChar x = (length . firstName $ x) <= 10
+```
 
+And we run that prop in the main function of the test suite using `verboseCheck` which shows us what values were used. This is useful for the purpose of this tutorial but in real life you might want to use `quickCheck` ou `quickCheckAll`.
+```
+main :: IO ()
+main = verboseCheck prop_FirstNameUnderTenChar
+```
+
+The main function is ran when you use `stack test` on your project. This is a convenient way to build your project and run the test suite.
