@@ -54,7 +54,7 @@ genPhone = do
  ```
 
 ## Run your properties
-Now that QuickCheck will be able to generate random values for our type we can write properties about it. Properties can be written in a separate test file (`Spec.hs`in our case). These properties consist of a statement that can be true or false. In our case we test that the first name is no longer than 10 characters with the following prop:
+Now that QuickCheck will be able to generate random values for our type we can write properties about it. Properties can be written in a separate test file (`Spec.hs`in our case). These properties consist of a function that returns a boolean. In our case we test that the first name is no longer than 10 characters with the following prop:
 ```
 prop_FirstNameUnderTenChar :: Person -> Bool
 prop_FirstNameUnderTenChar x = (length . firstName $ x) <= 10
