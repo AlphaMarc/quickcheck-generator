@@ -67,3 +67,8 @@ main = verboseCheck prop_FirstNameUnderTenChar
 ```
 
 The main function is ran when you use `stack test` on your project. This is a convenient way to build your project and run the test suite.
+
+## Modifying global test parameters
+QuickCheck allows you to define some global parameters when you run your tests. A record type `Args` is available to store testing arguments. You can then use the function `quickCheckWith :: Testable prop => Args -> prop -> IO ()` to pass in test settings.
+
+A default value `stdArgs` is given by the library. Feel free to modify it using the record edition syntax. For example to change the maxSize for the biggest test just do `myArgs = stdArgs { maxSize = 20 }`.
